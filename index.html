@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DBS HR Portal</title>
+<meta name="apple-mobile-web-app-title" content="DBS HR Portal">
+<meta name="application-name" content="DBS HR Portal">
+<meta name="theme-color" content="#714beb">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #f4f1ff;
+         font-family: "Times New Roman", Times, serif; color: #222; padding: 16px; }
+  .card { background: #fff; max-width: 420px; width: 100%; padding: 32px 24px; text-align: center; border-top: 6px solid #714beb;
+          box-shadow: 0 6px 24px rgba(60, 30, 140, .15); }
+  .card img { width: 120px; height: 120px; }
+  h1 { color: #714beb; font-size: 28px; margin: 12px 0 4px; }
+  p { margin: 8px 0; font-size: 17px; }
+  .btn { display: block; margin: 20px 0 8px; padding: 14px; background: #714beb; color: #fff; text-decoration: none; font-size: 19px; }
+  .hint { font-size: 14px; color: #666; text-align: left; background: #f7f5ff; padding: 10px 12px; margin-top: 16px; display: none; }
+  .hint b { color: #4b2db8; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="icon-512.png" alt="DBS Solutions">
+  <h1>DBS HR Portal</h1>
+  <p id="msg">Opening the HR Portal…</p>
+  <a class="btn" id="go" href="#">Open HR Portal</a>
+  <div class="hint" id="add">
+    <b>Add it to your home screen</b> (do this on this page, before it opens):<br>
+    iPhone (Safari): tap <b>Share</b> › <b>Add to Home Screen</b> › <b>Add</b>.<br>
+    Android (Chrome): tap <b>⋮</b> › <b>Add to Home screen</b> › <b>Add</b>.
+  </div>
+</div>
+<script>
+  /* ▼▼▼ Paste your HR Portal link between the quotes (it starts with https://script.google.com/macros/s/) ▼▼▼ */
+  var PORTAL = 'PASTE_YOUR_HR_PORTAL_LINK_HERE';
+  /* ▲▲▲ nothing else needs changing ▲▲▲ */
+
+  var go = document.getElementById('go');
+  go.href = PORTAL;
+  var standalone = window.navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+
+  var setup = /[?&]add=1/.test(location.search);       // share  …/?add=1  so people can add the icon before it opens
+  if (PORTAL.indexOf('https://') !== 0) {
+    document.getElementById('msg').textContent = 'The HR Portal link has not been added to this page yet.';
+  } else if (setup) {
+    document.getElementById('msg').textContent = 'First add this page to your home screen, then tap "Open HR Portal".';
+    document.getElementById('add').style.display = 'block';
+  } else {
+    setTimeout(function () { location.replace(PORTAL); }, 250);
+  }
+</script>
+</body>
+</html>
